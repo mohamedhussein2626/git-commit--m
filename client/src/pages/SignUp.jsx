@@ -18,51 +18,32 @@ const SignUp = () => {
 
   }
 
-  const handleSubmit = async(e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!formData.username || !formData.email || !formData.password){
-      return setErrorMessage('PLEASE FILL OUT ALL FIELDS...')
+    if (!formData.username || !formData.email || !formData.password) {
+      return setErrorMessage('Please fill out all fields.');
     }
-
     try {
-
       setLoading(true);
-      setErrorMessage(null)
-
-      const res = await fetch('/api/auth/signup' , {
-        method: "POST",
+      setErrorMessage(null);
+      const res = await fetch('/api/auth/signup', {
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
-
       });
-
       const data = await res.json();
-
-      if(data.success === false){
-        return setErrorMessage(data.message)
+      if (data.success === false) {
+        return setErrorMessage(data.message);
       }
-
       setLoading(false);
-      if(res.ok){
-         navigate("/sign-in")
+      if(res.ok) {
+        navigate('/sign-in');
       }
-      
     } catch (error) {
-
-      setErrorMessage(error.message)
-      setLoading(false)
-      
+      setErrorMessage(error.message);
+      setLoading(false);
     }
-
-
-
-
-
-
-  }
-
-
-
+  };
 
 
 
